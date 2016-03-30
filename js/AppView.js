@@ -17,19 +17,29 @@ app.AppView = Backbone.View.extend({
         this.$input = this.$('#search');
         this.$results = this.$('#search-results');
         this.$tracker = this.$('#calorie-count');
+        this.$resultstxt = this.$('#results-txt');
 
         // bind relevant events on the SearchCollection
         // and UserCollection - when those change, the
         // AppView needs to be updated
         this.listenTo(app.SearchCollection, 'add', this.addSearchItem);
-
+        this.listenTo(app.SearchCollection, 'reset', this.clear);
     },
 
-    // will be fired when SearchCollection changes - new SearchItemView will
-    // be created
+    // called when SearchCollection reset (so as to display new search
+    // results)
+    clear: function() {
+        _.each(_.clone(app.SearchCollection.models), function(model) {
+            model.destroy();
+        });
+    },
+
+    // will be fired when item added to SearchCollection - new SearchItemView
+    // will be created
     addSearchItem: function(item) {
         var view = new app.SearchItemView({model: item});
-        console.log(view);
+        //console.log(view);
+        this.$resultstxt.addClass('hide');
         this.$results.append(view.render().el);
     },
 
@@ -43,6 +53,7 @@ app.AppView = Backbone.View.extend({
     populateSearchCollection: function (data) {
         // clear out old results, if any:
         //app.SearchCollection.reset();
+        this.clear();
         var foodDataArray = data.hits;
         // create FoodItem for each item in array
         foodDataArray.forEach(function (obj) {
@@ -60,7 +71,7 @@ app.AppView = Backbone.View.extend({
                 calories: calories
             });
         });
-        //console.log(app.SearchCollection.models);
+        console.log(app.SearchCollection.models);
     },
 
     getFoodItems: function (queryString) {
