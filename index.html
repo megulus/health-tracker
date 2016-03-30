@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap-theme.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Calorie Tracker</title>
+</head>
+<body>
+<section class="container" id="healthapp">
+    <header>
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="h1 text-center">Calorie Tracker</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <form>
+                    <div id="search-group" class="form-group">
+                        <label for="search">Search for Food Items</label>
+                        <input id="search" class="form-control" placeholder="Enter food item (e.g., 'latte' or 'Starbucks latte')" autofocus autocomplete="off">
+                        <button class="btn btn-default" id="search-button">Search</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </header>
+
+    <section>
+        <div class="row">
+            <div class="col-md-6" >
+                <div class="col-md-6 display-box" id="search-results">
+                    <p id="results-txt">Search results will be displayed here</p>
+                    <ul class="list-unstyled"></ul>
+                </div>
+
+            </div>
+            <div class="col-md-6">
+                <div class="col-md-6 display-box" id="calorie-count"></div>
+            </div>
+        </div>
+    </section>
+</section>
+
+<script type="text/template" id="search-item-template">
+    <div class="search-item-view">
+        <ul>
+            <li><%= brand %></li>
+            <li><%= item %></li>
+            <li><%= calories %></li>
+            <button class="add">Add To Calorie Tracker</button>
+        </ul>
+    </div>
+</script>
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script src="bower_components/underscore/underscore-min.js"></script>
+<script src="bower_components/backbone/backbone-min.js"></script>
+<script src="https://cdn.firebase.com/js/client/2.4.1/firebase.js"></script>
+<script src="https://cdn.firebase.com/libs/backbonefire/0.5.1/backbonefire.min.js"></script>
+<script src="js/SearchItem.js"></script>
+<script src="js/SearchCollection.js"></script>
+<script src="js/FoodItem.js"></script>
+<script src="js/UserCollection.js"></script>
+<script src="js/SearchItemView.js"></script>
+<script src="js/AppView.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
