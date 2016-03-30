@@ -21,11 +21,16 @@ app.AppView = Backbone.View.extend({
         // bind relevant events on the SearchCollection
         // and UserCollection - when those change, the
         // AppView needs to be updated
-
+        this.listenTo(app.SearchCollection, 'add', this.addSearchItem);
 
     },
 
-    render: function () {
+    // will be fired when SearchCollection changes - new SearchItemView will
+    // be created
+    addSearchItem: function(item) {
+        var view = new app.SearchItemView({model: item});
+        console.log(view);
+        this.$results.append(view.render().el);
     },
 
     search: function (event) {
@@ -35,14 +40,18 @@ app.AppView = Backbone.View.extend({
         return false;
     },
 
-    displayFoodList: function (data) {
+    populateSearchCollection: function (data) {
         // clear out old results, if any:
         //app.SearchCollection.reset();
         var foodDataArray = data.hits;
         // create FoodItem for each item in array
         foodDataArray.forEach(function (obj) {
-            console.log(obj);
-            var brand = obj.fields.brand_name;
+            var brand;
+            if (obj.fields.brand_name === 'Nutritionix') {
+                brand = 'Not specified';
+            } else {
+                brand = obj.fields.brand_name;
+            }
             var item = obj.fields.item_name;
             var calories = obj.fields.nf_calories;
             app.SearchCollection.add({
@@ -51,6 +60,7 @@ app.AppView = Backbone.View.extend({
                 calories: calories
             });
         });
+        //console.log(app.SearchCollection.models);
     },
 
     getFoodItems: function (queryString) {
@@ -72,7 +82,7 @@ app.AppView = Backbone.View.extend({
                 headers: {'contentType': 'application/JSON'}
             })
             .done(function (data) {
-                that.displayFoodList(data);
+                that.populateSearchCollection(data);
             })
             .error(function (e) {
                 console.log('error: ' + e.message);
