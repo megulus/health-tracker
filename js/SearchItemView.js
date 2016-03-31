@@ -33,7 +33,7 @@ app.SearchItemView = Backbone.View.extend({
             item: this.model.get('item'),
             calories: this.model.get('calories')
         });
-        console.log(app.UserCollection.models);
+        //console.log(app.UserCollection.models);
     }
 
 });

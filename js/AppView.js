@@ -16,14 +16,39 @@ app.AppView = Backbone.View.extend({
     initialize: function () {
         this.$input = this.$('#search');
         this.$results = this.$('#search-results');
-        this.$tracker = this.$('#calorie-count');
+        this.$counter = this.$('#calorie-count');
         this.$resultstxt = this.$('#results-txt');
+        this.$clearTracker = this.$('#clear-tracker');
+        this.$tracker = this.$('#foods-tracked');
+
+        // check whether clear link should be displayed:
+        this.toggleClearLink();
 
         // bind relevant events on the SearchCollection
         // and UserCollection - when those change, the
         // AppView needs to be updated
         this.listenTo(app.SearchCollection, 'add', this.addSearchItem);
         this.listenTo(app.SearchCollection, 'reset', this.clear);
+        this.listenTo(app.UserCollection, 'add', this.toggleClearLink);
+        this.listenTo(app.UserCollection, 'add', this.addFoodItem);
+        this.listenTo(app.UserCollection, 'remove', this.toggleClearLink);
+    },
+
+
+    toggleClearLink: function() {
+        if (!app.UserCollection.length) {
+            this.$clearTracker.addClass('hide');
+        } else {
+            if (this.$clearTracker.hasClass('hide')) {
+                this.$clearTracker.removeClass('hide');
+            }
+
+        }
+    },
+
+    addFoodItem: function(item) {
+        var view = new app.FoodItemView({model: item});
+        this.$tracker.append(view.render().el);
     },
 
     // called when SearchCollection reset (so as to display new search
@@ -69,7 +94,7 @@ app.AppView = Backbone.View.extend({
                 calories: calories
             });
         });
-        console.log(app.SearchCollection.models);
+        //console.log(app.SearchCollection.models);
     },
 
     getFoodItems: function (queryString) {

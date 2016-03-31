@@ -17,3 +17,5 @@ Thanks to [this Stack Overflow Article](http://stackoverflow.com/questions/10858
 
 I used the [Backbone.Modal.js](http://awkward.github.io/backbone.modal/) plugin to create my modal dialogue box.
 
+This [article on filtering Collections](http://stackoverflow.com/questions/11762105/filter-backbone-collection-by-attribute-value) was helpful in figuring out how to chain various filtering methods, which was useful for the purposes of sorting by day, week, month and year.
+
