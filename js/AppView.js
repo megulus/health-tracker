@@ -38,7 +38,6 @@ app.AppView = Backbone.View.extend({
     // will be created
     addSearchItem: function(item) {
         var view = new app.SearchItemView({model: item});
-        //console.log(view);
         this.$resultstxt.addClass('hide');
         this.$results.append(view.render().el);
     },
@@ -52,7 +51,6 @@ app.AppView = Backbone.View.extend({
 
     populateSearchCollection: function (data) {
         // clear out old results, if any:
-        //app.SearchCollection.reset();
         this.clear();
         var foodDataArray = data.hits;
         // create FoodItem for each item in array

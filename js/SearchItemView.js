@@ -24,7 +24,7 @@ app.SearchItemView = Backbone.View.extend({
         return this;
     },
 
-    // this is a bit weird...a DOM event on a SearchItem View is creating a
+    // is this weird?...a DOM event on a SearchItem View is creating a
     // new FoodItem model - not sure if this is Kosher, but don't know how else
     // to handle this
     addNewTrackedItem: function() {
@@ -33,6 +33,7 @@ app.SearchItemView = Backbone.View.extend({
             item: this.model.get('item'),
             calories: this.model.get('calories')
         });
+        console.log(app.UserCollection.models);
     }
 
 });
