@@ -41,17 +41,17 @@
             <div class="col-md-6">
                 <div class="col-md-6 display-box display-box-full" id="search-results">
                     <p class="results-txt">Search results will be displayed here</p>
-                    <ul class="list-unstyled"></ul>
+                    <ul></ul>
                 </div>
 
             </div>
             <div class="col-md-6">
                 <ul class="nav nav-tabs">
                     <li class="active"><a href="#/">Total</a></li>
-                    <li><a href="#/day">Day</a></li>
-                    <li><a href="#/week">Week</a></li>
-                    <li><a href="#/month">Month</a></li>
-                    <li><a href="#/year">Year</a></li>
+                    <li><a href="#/day">Today</a></li>
+                    <li><a href="#/week">Last 7 Days</a></li>
+                    <li><a href="#/month">This Month</a></li>
+                    <li><a href="#/year">This Year</a></li>
                 </ul>
                 <div class="col-md-3 display-box display-box-half" id="calorie-count">
                     <p class="results-txt">Calories (total of tracked foods):</p>
@@ -59,9 +59,9 @@
                 </div>
                 <div class="col-md-3 display-box display-box-half" id="foods-tracked">
                     <p class="results-txt">Foods Tracked:</p>
-                    <ul class="list-unstyled"></ul>
+                    <ul></ul>
                 </div>
-                <a class="open" id="clear-tracker">Clear Calorie Tracker</a>
+                <a class="open hide" id="clear-tracker">Clear Calorie Tracker</a>
             </div>
         </div>
     </section>
@@ -92,8 +92,10 @@
 <script type="text/template" id="food-item-template">
     <div class="food-item-view">
         <ul>
-            <li><%= brand %><%= item %></li>
-            <li><%= calories %> <span><a class="delete">Delete</a></span></li>
+            <li><%= brand %> <%= item %></li>
+            <li><%= calories %> calories</li>
+            <li><%= date %></li>
+            <li><a class="delete">Delete</a></li>
         </ul>
     </div>
 </script>

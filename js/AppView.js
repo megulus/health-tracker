@@ -14,9 +14,10 @@ app.AppView = Backbone.View.extend({
     },
 
     initialize: function () {
+        var that = this;
         this.$input = this.$('#search');
         this.$results = this.$('#search-results');
-        this.$counter = this.$('#calorie-count');
+        this.$counter = this.$('.calories');
         this.$resultstxt = this.$('#results-txt');
         this.$clearTracker = this.$('#clear-tracker');
         this.$tracker = this.$('#foods-tracked');
@@ -32,6 +33,14 @@ app.AppView = Backbone.View.extend({
         this.listenTo(app.UserCollection, 'add', this.toggleClearLink);
         this.listenTo(app.UserCollection, 'add', this.addFoodItem);
         this.listenTo(app.UserCollection, 'remove', this.toggleClearLink);
+        this.listenTo(app.UserCollection, 'remove', this.removeFoodItem);
+    },
+
+
+    displayCalories: function(collection) {
+        this.$counter.html('');
+        var total = collection.totalCalories();
+        this.$counter.append(total);
     },
 
 
@@ -46,9 +55,14 @@ app.AppView = Backbone.View.extend({
         }
     },
 
+    removeFoodItem: function() {
+        this.displayCalories(app.UserCollection);
+    },
+
     addFoodItem: function(item) {
         var view = new app.FoodItemView({model: item});
         this.$tracker.append(view.render().el);
+        this.displayCalories(app.UserCollection);
     },
 
     // called when SearchCollection reset (so as to display new search

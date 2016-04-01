@@ -45,3 +45,22 @@
 #clear-tracker:hover {
     cursor: pointer;
 }
+
+.search-item-view,
+.food-item-view {
+    font-size: smaller;
+    border-top: 1px solid #cccccc;
+}
+
+li {
+    list-style: none;
+}
+
+ul {
+    padding-left: 0;
+}
+
+.delete:hover {
+    cursor: pointer;
+}
+

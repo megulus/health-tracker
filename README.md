@@ -11,6 +11,12 @@ Backbone.Modal
 
 Bootstrap
 
+### Future Improvements/Features
+
+1. Add feature to allow users to change quantities of foods, in addition to adding/deleting.
+
+2. Add feature to allow users to change the date on food item(s).
+
 ### Acknowledgements
 
 Thanks to [this Stack Overflow Article](http://stackoverflow.com/questions/10858935/cleanest-way-to-destroy-every-model-in-a-collection-in-backbone) for helping to clear up an issue I ran into in attempting to clear a collection/destroy its models.
