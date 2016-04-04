@@ -10,10 +10,12 @@ app.AppView = Backbone.View.extend({
 
     events: {
         // enter key triggers click event, no need for separate keypress event
-        'click #search-button': 'search'
+        'click #search-button': 'search',
+        'click #year' : 'filterYear'
     },
 
     initialize: function () {
+
         var that = this;
         this.$input = this.$('#search');
         this.$results = this.$('#search-results');
@@ -34,10 +36,19 @@ app.AppView = Backbone.View.extend({
         this.listenTo(app.UserCollection, 'add', this.addFoodItem);
         this.listenTo(app.UserCollection, 'remove', this.toggleClearLink);
         this.listenTo(app.UserCollection, 'remove', this.removeFoodItem);
+        this.listenTo(app.UserCollection, 'filter', this.render);
+
+
+    },
+
+    filterYear: function() {
+        console.log('this year');
+        app.UserCollection.byYear();
+        this.displayCalories(app.UserCollection);
     },
 
 
-    displayCalories: function(collection) {
+    displayCalories: function(collection) { // Todo: fix this to take no parameter
         this.$counter.html('');
         var total = collection.totalCalories();
         this.$counter.append(total);

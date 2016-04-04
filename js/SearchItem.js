@@ -7,6 +7,7 @@ app.SearchItem = Backbone.Model.extend({
     defaults: {
         brand: 'Not specified',
         item: 'Not specified',
-        calories: 0
+        calories: 0,
+        date: Date.now()
     }
 });

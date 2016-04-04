@@ -25,15 +25,15 @@ app.SearchItemView = Backbone.View.extend({
     },
 
     // is this weird?...a DOM event on a SearchItem View is creating a
-    // new FoodItem model - not sure if this is Kosher, but don't know how else
-    // to handle this
+    // new FoodItem model - not sure how else to handle this
     addNewTrackedItem: function() {
         app.UserCollection.add({
             brand: this.model.get('brand'),
             item: this.model.get('item'),
-            calories: this.model.get('calories')
+            calories: this.model.get('calories'),
+            date: this.model.get('date')
         });
-        //console.log(app.UserCollection.models);
+        console.log(app.UserCollection.models);
     }
 
 });

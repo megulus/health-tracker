@@ -5,9 +5,9 @@ var app = app || {};
 
 app.FoodItem = Backbone.Model.extend({
     defaults: {
-        brand: 'Not specified',
-        item: 'Not specified',
+        brand: '',
+        item: '',
         calories: 0,
-        date: new Date(Date.now())
+        date: Date.now()
     }
 });

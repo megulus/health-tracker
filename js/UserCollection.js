@@ -6,15 +6,16 @@
 var app = app || {};
 
 var UserCollection = Backbone.Firebase.Collection.extend({
-    model: app.FoodItem,
     url: 'https://popping-fire-4784.firebaseIO.com',
+    model: app.FoodItem,
+    autoSync: true,
 
     // Filter the collection for foods eaten this year
     byYear: function() {
         var filtered = this.filter(function(food) {
             return food.get('date').getYear() === todayYear;
         });
-        return new UserCollection(filtered);
+        return filtered;
     },
 
     // Filter for food eaten this month
@@ -52,4 +53,5 @@ var UserCollection = Backbone.Firebase.Collection.extend({
 });
 
 app.UserCollection = new UserCollection();
+
 

@@ -19,6 +19,12 @@ app.FoodItemView = Backbone.View.extend({
 
     render: function() {
         this.$el.html(this.template(this.model.attributes));
+        //this.$el.html({
+        //    brand: this.model.get('brand'),
+        //    item: this.model.get('item'),
+        //    calories: this.model.get('calories'),
+        //    date: (this.model.get('date')).toLocaleDateString()
+        //});
         return this;
     },
 
