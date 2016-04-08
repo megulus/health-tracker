@@ -61,7 +61,29 @@ app.AppView = Backbone.View.extend({
     render: function () {
         // todo: render callories according to app.FoodItemFilter
         // todo: based on filter, call appropriate collection filter + sum the calories
-        this.displayCalories();
+        // todo: get rid of displayCalories
+        //this.displayCalories();
+        var total = app.UserCollection.totalCalories();
+        /*if (app.FoodItemFilter === 'year') {
+            var byYear = app.UserCollection.byYear();
+            console.log(byYear);
+            total = app.UserCollection.totalCalories(byYear);
+        } else if (app.FoodItemFilter === 'week') {
+            total = app.UserCollection.byWeek().totalCalories();
+        } else if (app.FoodItemFilter === 'day') {
+            total = app.UserCollection.today().totalCalories();
+            console.log(app.UserCollection.today());
+            console.log(total);
+        } else if (app.FoodItemFilter === 'month') {
+            total = app.UserCollection.byMonth().totalCalories();
+        } else {
+            total = app.UserCollection.totalCalories();
+        }*/
+
+        this.$counter.html('');
+        this.$counter.append(total);
+
+
     },
 
     /*filterYear: function() {
@@ -79,6 +101,7 @@ app.AppView = Backbone.View.extend({
         todo.trigger('visible');
     },
 
+    // todo: get rid of this - moving to render
     displayCalories: function () {
         this.$counter.html('');
         var total = app.UserCollection.totalCalories();

@@ -17,38 +17,52 @@ var UserCollection = Backbone.Firebase.Collection.extend({
         var filtered = this.filter(function(food) {
             return new Date(food.get('date')).getFullYear() === todayYear;
         });
-        console.log(filtered);
+        //console.log(filtered);
         return filtered;
     },
 
     // Filter for food eaten this month
     byMonth: function() {
         var filtered = this.byYear().filter(function(food) {
-            return food.get('date').getMonth() === todayMonth;
+            return new Date(food.get('date')).getMonth() === todayMonth;
         });
-        return new UserCollection(filtered);
+        return filtered;
     },
 
     // Filter by week (last 7 days):
     byWeek: function() {
-        var filtered = this.filter(function(food) {
-            return food.get('date').getDate() >= today - 7 && food.get('date').getDate() <= today;
+        var filtered = this.byMonth().filter(function(food) {
+            return new Date(food.get('date')) >= todayMinusSeven
+                && new Date(food.get('date')) <= today;
         });
-        return new UserCollection(filtered);
+        return filtered;
     },
 
     today: function() {
-        var filtered = this.filter(function(food) {
-            return food.get('date').getDate() === today;
+        var filtered = this.byWeek().filter(function(food) {
+            console.log(new Date(food.get('date')).getDate() + todayDate);
+            return new Date(food.get('date')).getDate() === todayDate;
         });
-        return new UserCollection(filtered);
+        return filtered;
     },
 
     // todo: moved - for now at least - to DisplayCollection; get rid of it permanently if that works
     // todo: moved this back here, trying to undo the DisplayCollection tactic
     totalCalories: function() {
         var total = 0;
-        this.each(function(item) {
+        var filtered;
+        if (app.FoodItemFilter === 'year') {
+            filtered = this.byYear();
+        } else if (app.FoodItemFilter === 'day') {
+            filtered = this.today();
+        } else if (app.FoodItemFilter === 'month') {
+            filtered = this.byMonth();
+        } else if (app.FoodItemFilter === 'week') {
+            filtered = this.byWeek();
+        } else {
+            filtered = this;
+        }
+        filtered.forEach(function(item) {
             total += Math.round(item.get('calories'));
         });
         return total;
