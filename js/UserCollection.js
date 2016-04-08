@@ -5,7 +5,7 @@
 
 var app = app || {};
 
-// todo: order collection according to order models added
+// todo: order collection according to order models added, and add ability to reverse the display order
 
 var UserCollection = Backbone.Firebase.Collection.extend({
     url: 'https://popping-fire-4784.firebaseIO.com',
@@ -17,7 +17,6 @@ var UserCollection = Backbone.Firebase.Collection.extend({
         var filtered = this.filter(function(food) {
             return new Date(food.get('date')).getFullYear() === todayYear;
         });
-        //console.log(filtered);
         return filtered;
     },
 
@@ -40,14 +39,12 @@ var UserCollection = Backbone.Firebase.Collection.extend({
 
     today: function() {
         var filtered = this.byWeek().filter(function(food) {
-            console.log(new Date(food.get('date')).getDate() + todayDate);
             return new Date(food.get('date')).getDate() === todayDate;
         });
         return filtered;
     },
 
-    // todo: moved - for now at least - to DisplayCollection; get rid of it permanently if that works
-    // todo: moved this back here, trying to undo the DisplayCollection tactic
+
     totalCalories: function() {
         var total = 0;
         var filtered;

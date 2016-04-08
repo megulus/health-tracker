@@ -34,9 +34,7 @@ app.FoodItemView = Backbone.View.extend({
         var itemDay = itemDate.getDate();
         var itemMonth = itemDate.getMonth();
         var itemYear = itemDate.getFullYear();
-        //var todayMinusSeven = new Date(new Date().setDate(new Date().getDate() - 7));
         var thisWeek = (itemDate >= todayMinusSeven && itemDate <= today);
-        //console.log("itemDate: " + itemDate + "todayMinusSeven: " + todayMinusSeven + "today: " + today);
         return (
             (itemYear !== todayYear && app.FoodItemFilter === 'year')
             || (itemMonth !== todayMonth && app.FoodItemFilter === 'month')
