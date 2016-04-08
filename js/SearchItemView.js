@@ -31,7 +31,8 @@ app.SearchItemView = Backbone.View.extend({
             brand: this.model.get('brand'),
             item: this.model.get('item'),
             calories: this.model.get('calories'),
-            date: this.model.get('date')
+            date: this.model.get('date'),
+            order: app.UserCollection.nextOrder()
         });
         console.log(app.UserCollection.models);
     }

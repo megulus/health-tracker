@@ -47,11 +47,11 @@
             </div>
             <div class="col-md-6">
                 <ul class="nav nav-tabs">
-                    <li class="active"><a id="total">Total</a></li>
-                    <li><a id="day">Today</a></li>
-                    <li><a id="week">Last 7 Days</a></li>
-                    <li><a id="month">This Month</a></li>
-                    <li><a id="year">This Year</a></li>
+                    <li class="nav" id="total"><a href="#">Total</a></li>
+                    <li class="nav" id="day"><a href="#day">Today</a></li>
+                    <li class="nav" id="week"><a href="#week">Last 7 Days</a></li>
+                    <li class="nav" id="month"><a href="#month">This Month</a></li>
+                    <li class="nav" id="year"><a href="#year" >This Year</a></li>
                 </ul>
                 <div class="col-md-3 display-box display-box-half" id="calorie-count">
                     <p class="results-txt">Calories (total of tracked foods):</p>
@@ -72,7 +72,7 @@
         <ul>
             <li>Brand: <%= brand %></li>
             <li>Item: <%= item %></li>
-            <li>Calories: <%= calories %></li>
+            <li>Calories: <%= calories === 1 ? 'calorie' : 'calories' %></li>
             <button class="btn btn-xs add">Add To Calorie Tracker</button>
         </ul>
     </div>
@@ -93,7 +93,8 @@
     <div class="food-item-view">
         <ul>
             <li><%= brand %> <%= item %></li>
-            <li><%= calories %> calories</li>
+            <!--<li><%= calories %> calories</li>-->
+            <li><%= calories %> <%= calories === 1 ? 'calorie' : 'calories' %></li>
             <li><% print(new Date(date).toLocaleDateString()) %></li>
             <li><a class="delete">Delete</a></li>
         </ul>
@@ -112,17 +113,22 @@
 <script src="https://cdn.firebase.com/libs/backbonefire/0.5.1/backbonefire.min.js"></script>
 <script src="other_components/backbone.modal.js"></script>
 
-<script src="js/SearchCollection.js"></script>
 
-<!--<script src="js/Counter.js"></script>-->
+<script defer src="js/SearchItem.js"></script>
+<script defer src="js/SearchCollection.js"></script>
 
-<script src="js/SearchItemView.js"></script>
-<script src="js/FoodItemView.js"></script>
-<script src="js/AppView.js"></script>
-<script src="js/ModalView.js"></script>
-<script src="js/app.js"></script>
-<script src="js/FoodItem.js"></script>
-<script src="js/UserCollection.js"></script>
-<script src="js/SearchItem.js"></script>
+<script defer src="js/ModalView.js"></script>
+
+<script defer src="js/FoodItem.js"></script>
+
+<script defer src="js/UserCollection.js"></script>
+<!--<script defer src="js/DisplayCollection.js"></script>-->
+<script defer src="js/SearchItemView.js"></script>
+<script defer src="js/FoodItemView.js"></script>
+<script defer src="js/AppView.js"></script>
+
+<script defer src="js/app.js"></script>
+<script defer src="js/test.js"></script>
+<script defer src="js/router.js"></script>
 </body>
 </html>

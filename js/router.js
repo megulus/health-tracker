@@ -11,20 +11,60 @@ var app = app || {};
 var HealthTrackerRouter = Backbone.Router.extend({
 
     routes: {
-        '/year': 'showYear'
+        '': 'defaultRoute',
+        'year': 'showYear',
+        'day': 'showToday',
+        'week': 'showWeek',
+        'month': 'showMonth'
     },
 
-    index: function() {
+    // default filter setting is to display total (param = ''):
+    setFilter: function(param) {
+        app.FoodItemFilter = param;
+        app.UserCollection.trigger('filter');
+    },
 
+
+    deactivateTabs: function() {
+        var tabs = [$('#total'), $('#day'), $('#week'), $('#month'), $('#year')];
+        tabs.forEach(function($tab) {
+            $tab.removeClass('active');
+        })
+    },
+
+
+    defaultRoute: function(other) {
+        this.deactivateTabs();
+        $('#total').toggleClass('active');
+        this.setFilter('');
     },
 
     showYear: function() {
-        console.log('show year');
-        app.UserCollection.byYear();
-        app.AppView.displayCalories(app.UserCollection.byYear());
+        this.deactivateTabs();
+        $('#year').toggleClass('active');
+        this.setFilter('year');
+    },
+
+    showToday: function() {
+        this.deactivateTabs();
+        $('#day').toggleClass('active');
+        this.setFilter('day');
+    },
+
+    showWeek: function() {
+        this.deactivateTabs();
+        $('#week').toggleClass('active');
+        this.setFilter('week');
+    },
+
+    showMonth: function() {
+        this.deactivateTabs();
+        $('#month').toggleClass('active');
+        this.setFilter('month');
     }
 
 });
 
-app.AppRouter = new HealthTrackerRouter();
+var router = new HealthTrackerRouter();
 Backbone.history.start();
+

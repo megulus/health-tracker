@@ -10,8 +10,8 @@ app.AppView = Backbone.View.extend({
 
     events: {
         // enter key triggers click event, no need for separate keypress event
-        'click #search-button': 'search',
-        'click #year' : 'filterYear'
+        'click #search-button': 'search'
+        //'click #year' : 'filterYear'
     },
 
     initialize: function () {
@@ -27,6 +27,17 @@ app.AppView = Backbone.View.extend({
         // check whether clear link should be displayed:
         this.toggleClearLink();
 
+        // populate the DisplayCollection from the UserCollection
+        /*app.DisplayCollection = app.DisplayCollection || new DisplayCollection();
+        app.UserCollection.on('sync', function() {
+            console.log('trying to clone user collection');
+            _.each(_.clone(app.UserCollection.models), function (model) {
+                console.log('cloning UserCollection');
+                app.DisplayCollection.add(model);
+            });
+        });*/
+
+
         // bind relevant events on the SearchCollection
         // and UserCollection - when those change, the
         // AppView needs to be updated
@@ -34,28 +45,49 @@ app.AppView = Backbone.View.extend({
         this.listenTo(app.SearchCollection, 'reset', this.clear);
         this.listenTo(app.UserCollection, 'add', this.toggleClearLink);
         this.listenTo(app.UserCollection, 'add', this.addFoodItem);
+        //this.listenTo(app.DisplayCollection, 'add', this.addFoodItem);
+        //this.listenTo(app.DisplayCollection, 'remove', this.displayCalories);
+        //this.listenTo(app.DisplayCollection, 'add', this.displayCalories);
+        //this.listenTo(app.DisplayCollection, 'remove', this.render);
+        this.listenTo(app.UserCollection, 'add', this.displayCalories);
         this.listenTo(app.UserCollection, 'remove', this.toggleClearLink);
         this.listenTo(app.UserCollection, 'remove', this.removeFoodItem);
-        this.listenTo(app.UserCollection, 'filter', this.render);
-
-
+        this.listenTo(app.UserCollection, 'remove', this.displayCalories);
+        this.listenTo(app.UserCollection, 'filter', this.filterAll);
+        this.listenTo(app.UserCollection, 'all', this.render);
+        // todo: go through the list above and see which are really necessary
     },
 
-    filterYear: function() {
-        console.log('this year');
-        app.UserCollection.byYear();
-        this.displayCalories(app.UserCollection);
+    render: function () {
+        // todo: render callories according to app.FoodItemFilter
+        // todo: based on filter, call appropriate collection filter + sum the calories
+        this.displayCalories();
     },
 
+    /*filterYear: function() {
+     console.log('this year');
+     app.UserCollection.byYear();
+     this.displayCalories();
+     },*/
 
-    displayCalories: function(collection) { // Todo: fix this to take no parameter
+    filterAll: function() {
+        app.UserCollection.each(this.filterOne, this);
+    },
+
+    // trigger custom event 'visible'
+    filterOne: function(todo) {
+        todo.trigger('visible');
+    },
+
+    displayCalories: function () {
         this.$counter.html('');
-        var total = collection.totalCalories();
+        var total = app.UserCollection.totalCalories();
+        //var total = app.DisplayCollection.totalCalories();
         this.$counter.append(total);
     },
 
 
-    toggleClearLink: function() {
+    toggleClearLink: function () {
         if (!app.UserCollection.length) {
             this.$clearTracker.addClass('hide');
         } else {
@@ -66,27 +98,31 @@ app.AppView = Backbone.View.extend({
         }
     },
 
-    removeFoodItem: function() {
-        this.displayCalories(app.UserCollection);
+    // todo: um, don't think this is doing much of anything
+    removeFoodItem: function () {
+        //this.displayCalories();
     },
 
-    addFoodItem: function(item) {
+    addFoodItem: function (item) {
         var view = new app.FoodItemView({model: item});
         this.$tracker.append(view.render().el);
-        this.displayCalories(app.UserCollection);
+        //this.displayCalories();
     },
 
     // called when SearchCollection reset (so as to display new search
     // results)
-    clear: function() {
-        _.each(_.clone(app.SearchCollection.models), function(model) {
+    // todo: should this be a SearchCollection method?
+    clear: function () {
+        _.each(_.clone(app.SearchCollection.models), function (model) {
             model.destroy();
         });
+        // update calorie display:
+        //this.displayCalories();
     },
 
     // will be fired when item added to SearchCollection - new SearchItemView
     // will be created
-    addSearchItem: function(item) {
+    addSearchItem: function (item) {
         var view = new app.SearchItemView({model: item});
         this.$resultstxt.addClass('hide');
         this.$results.append(view.render().el);
@@ -131,7 +167,7 @@ app.AppView = Backbone.View.extend({
                 'query': queryString,
                 'fields': ['item_name', 'brand_name', 'nf_calories', 'item_type'],
                 'offset': 0,
-                'limit': 25
+                'limit': 40
             };
 
         var xhr = $.ajax({

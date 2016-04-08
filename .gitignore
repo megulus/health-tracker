@@ -2,3 +2,5 @@
 .idea/
 bower_components/
 bootstrap/
+
+test.js
