@@ -1,6 +1,9 @@
 .DS_Store
 .idea/
 bower_components/
+node_modules/
 bootstrap/
+build/
 
 test.js
+src/js/test.js
