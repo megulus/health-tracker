@@ -42,7 +42,6 @@ app.AppView = Backbone.View.extend({
         this.listenTo(app.UserCollection, 'remove', this.displayCalories);
         this.listenTo(app.UserCollection, 'filter', this.filterAll);
         this.listenTo(app.UserCollection, 'all', this.render);
-        // todo: go through the list above and see which are really necessary
     },
 
     render: function () {
@@ -84,7 +83,6 @@ app.AppView = Backbone.View.extend({
 
     // called when SearchCollection reset (so as to display new search
     // results)
-    // todo: should this be a SearchCollection method?
     clear: function () {
         _.each(_.clone(app.SearchCollection.models), function (model) {
             model.destroy();
@@ -102,6 +100,7 @@ app.AppView = Backbone.View.extend({
     search: function (event) {
         this.getFoodItems(this.$input.val().trim());
         // reset the input:
+
         this.$input.val('');
         return false;
     },
@@ -129,6 +128,8 @@ app.AppView = Backbone.View.extend({
     },
 
     getFoodItems: function (queryString) {
+        //var indicator = new ProgressModal();
+        $('.modal-div').html(app.ProgressModal.render().el);
         var that = this;
         var url = 'https://api.nutritionix.com/v1_1/search',
             requestData = {
@@ -147,6 +148,7 @@ app.AppView = Backbone.View.extend({
                 headers: {'contentType': 'application/JSON'}
             })
             .done(function (data) {
+                app.ProgressModal.destroy();
                 that.populateSearchCollection(data);
             })
             .error(function (e) {

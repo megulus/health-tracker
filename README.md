@@ -9,7 +9,9 @@ The user can add to the collection by searching for food items in the search bar
 
 ### Building and Running
 
-The app does not require build tools - it can be run simply by opening 'src/index.html' from a browser (or by serving the 'src' directory on a simple http server). 
+Note: Bower must be installed to run the health tracker app. To reinstall the Bower packages, run the command "bower install" within the project root directory.
+
+The app does not require build tools - it can be run simply by opening 'index.html' from a browser (or by serving the project root directory on a simple http server). 
 
 However, the gulpfile.js does run some basic optimizations (html/css/js minification) that can improve the app's performance. To run the build tools, first make sure that gulp is installed locally. Then install gulp locally in the project's local directory and run the command 'gulp.' Then follow the instructions in the paragraph above, simply replacing the 'src' directory with the 'build' directory.
 
@@ -20,6 +22,8 @@ jQuery
 Underscore
 Backbone.Modal
 Bootstrap
+
+The project requires bower (see the bower.json); backbone, underscore and jQuery are all included in the project as bower components.
 
 
 ### Future Improvements/Features
