@@ -31,7 +31,6 @@ app.SearchItemView = Backbone.View.extend({
             date: this.model.get('date'),
             order: app.UserCollection.nextOrder()
         });
-        console.log(app.UserCollection.models);
     }
 
 });

@@ -152,7 +152,9 @@ app.AppView = Backbone.View.extend({
                 that.populateSearchCollection(data);
             })
             .error(function (e) {
+                app.ProgressModal.destroy();
                 console.log('error: ' + e.message);
+                that.$results.append('<div>Search results could not be retrieved. Please try again later.</div>');
             });
     }
 
