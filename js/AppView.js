@@ -144,8 +144,8 @@ app.AppView = Backbone.View.extend({
         var xhr = $.ajax({
                 type: 'POST',
                 url: url,
-                data: requestData,
-                headers: {'contentType': 'application/JSON'}
+                data: requestData
+                //headers: {'contentType': 'application/JSON'}
             })
             .done(function (data) {
                 app.ProgressModal.destroy();
