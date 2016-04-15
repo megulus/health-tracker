@@ -106,9 +106,14 @@ app.AppView = Backbone.View.extend({
     },
 
     populateSearchCollection: function (data) {
+        var that = this;
         // clear out old results, if any:
         this.clear();
         var foodDataArray = data.hits;
+        // alert user if no results are found for a search:
+        if (foodDataArray.length === 0) {
+            that.$results.append('<div>No results found. Please try another search.</div>')
+        }
         // create FoodItem for each item in array
         foodDataArray.forEach(function (obj) {
             var brand;
