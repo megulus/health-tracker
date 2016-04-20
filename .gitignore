@@ -7,3 +7,5 @@ build/
 
 test.js
 src/js/test.js
+
+.publish
