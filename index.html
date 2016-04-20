@@ -1,84 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <!-- build:css ./css/site.css -->
-    <link rel="stylesheet" href="assets/other_components/backbone.modal.css">
-    <link rel="stylesheet" href="assets/other_components/backbone.modal.theme.css">
-    <link rel="stylesheet" href="assets/css/modal.css">
-    <link rel="stylesheet" href="assets/css/style.css">
-    <!-- endbuild -->
-    <title>Calorie Tracker</title>
-</head>
-<body>
-<section class="container" id="healthapp">
-    <div class="modal-div"></div>
-    <header>
-        <div class="row">
-            <div class="col-md-12">
-                <h1 class="h1 text-center">Calorie Tracker</h1>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <form>
-                    <div id="search-group" class="form-group">
-                        <label for="search">Search for Food Items</label>
-                        <input id="search" class="form-control"
-                               placeholder="What did you eat today? (search for food items, e.g., 'latte' or 'Starbucks latte')" autofocus
-                               autocomplete="off">
-                        <button class="btn btn-default" id="search-button">Search</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </header>
-
-    <section>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="col-md-6 display-box display-box-full" id="search-results">
-                    <p class="results-txt">Search results will be displayed here</p>
-                    <ul></ul>
-                </div>
-
-            </div>
-            <div class="col-md-6">
-                <ul class="nav nav-tabs">
-                    <li class="nav" id="total"><a href="#">Total</a></li>
-                    <li class="nav" id="day"><a href="#day">Today</a></li>
-                    <li class="nav" id="week"><a href="#week">Last 7 Days</a></li>
-                    <li class="nav" id="month"><a href="#month">This Month</a></li>
-                    <li class="nav" id="year"><a href="#year" >This Year</a></li>
-                </ul>
-                <div class="col-md-3 display-box display-box-half" id="calorie-count">
-                    <p class="results-txt">Calories (total of tracked foods):</p>
-                    <h1 class="h1 calories"></h1>
-                </div>
-                <div class="col-md-3 display-box display-box-half" id="foods-tracked">
-                    <p class="results-txt">Foods Tracked:</p>
-                    <ul></ul>
-                </div>
-                <a class="open hide" id="clear-tracker">Clear Calorie Tracker</a>
-            </div>
-        </div>
-    </section>
-</section>
-
-<script type="text/template" id="search-item-template">
-    <div class="search-item-view">
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"><link rel="stylesheet" href="./css/site.css"><title>Calorie Tracker</title></head><body><section class="container" id="healthapp"><div class="modal-div"></div><header><div class="row"><div class="col-md-12"><h1 class="h1 text-center">Calorie Tracker</h1></div></div><div class="row"><div class="col-md-12"><form><div id="search-group" class="form-group"><label for="search">Search for Food Items</label><input id="search" class="form-control" placeholder="What did you eat today? (search for food items, e.g., 'latte' or 'Starbucks latte')" autofocus autocomplete="off"> <button class="btn btn-default" id="search-button">Search</button></div></form></div></div></header><section><div class="row"><div class="col-md-6"><div class="col-md-6 display-box display-box-full" id="search-results"><p class="results-txt">Search results will be displayed here</p><ul></ul></div></div><div class="col-md-6"><ul class="nav nav-tabs"><li class="nav" id="total"><a href="#">Total</a></li><li class="nav" id="day"><a href="#day">Today</a></li><li class="nav" id="week"><a href="#week">Last 7 Days</a></li><li class="nav" id="month"><a href="#month">This Month</a></li><li class="nav" id="year"><a href="#year">This Year</a></li></ul><div class="col-md-3 display-box display-box-half" id="calorie-count"><p class="results-txt">Calories (total of tracked foods):</p><h1 class="h1 calories"></h1></div><div class="col-md-3 display-box display-box-half" id="foods-tracked"><p class="results-txt">Foods Tracked:</p><ul></ul></div><a class="open hide" id="clear-tracker">Clear Calorie Tracker</a></div></div></section></section><script type="text/template" id="search-item-template"><div class="search-item-view">
         <ul>
             <li>Brand: <%= brand %></li>
             <li>Item: <%= item %></li>
             <li>Calories: <%= calories %><%= calories === 1 ? ' calorie' : ' calories' %></li>
             <button class="btn btn-xs add">Add To Calorie Tracker</button>
         </ul>
-    </div>
-</script>
-<script type="text/template" id="modal-template">
-    <div class="bbm-modal__topbar">
+    </div></script><script type="text/template" id="modal-template"><div class="bbm-modal__topbar">
         <h3 class="bbm-modal__title">Clear Calorie Tracker</h3>
     </div>
     <div class="bbm-modal__section">
@@ -87,21 +14,14 @@
     <div class="bbm-modal__bottombar">
         <a class="bbm-button" id="clear-btn">Clear All</a>
         <a class="bbm-button" id="cancel-btn">Cancel</a>
-    </div>
-</script>
-<script type="text/template" id="food-item-template">
-    <div class="food-item-view">
+    </div></script><script type="text/template" id="food-item-template"><div class="food-item-view">
         <ul>
             <li><%= brand %> <%= item %></li>
             <li><%= calories %> <%= calories === 1 ? 'calorie' : 'calories' %></li>
             <li><% print(new Date(date).toLocaleDateString()) %></li>
             <li><a class="delete">Delete</a></li>
         </ul>
-    </div>
-</script>
-<!--Loading indicator modal-->
-<script type="text/template" id="progress-modal">
-    <div class="bbm-modal__section" data-keyboard="false">
+    </div></script><!--Loading indicator modal--><script type="text/template" id="progress-modal"><div class="bbm-modal__section" data-keyboard="false">
         <div class="modal-header">
             <h2>Retrieving results...</h2>
         </div>
@@ -110,31 +30,4 @@
                 <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
             </div>
         </div>
-    </div>
-</script>
-
-
-
-<script src="bower_components/jquery/dist/jquery.min.js"></script>
-<script src="bower_components/underscore/underscore-min.js"></script>
-<script src="bower_components/backbone/backbone-min.js"></script>
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<script src="https://cdn.firebase.com/js/client/2.4.1/firebase.js"></script>
-<script src="https://cdn.firebase.com/libs/backbonefire/0.5.1/backbonefire.min.js"></script>
-
-<!-- build:js ./js/site.js -->
-<script src="assets/other_components/backbone.modal.js"></script>
-<script defer src="assets/js/SearchItem.js"></script>
-<script defer src="assets/js/SearchCollection.js"></script>
-<script defer src="assets/js/ModalView.js"></script>
-<script defer src="assets/js/ProgressModal.js"></script>
-<script defer src="assets/js/FoodItem.js"></script>
-<script defer src="assets/js/UserCollection.js"></script>
-<script defer src="assets/js/SearchItemView.js"></script>
-<script defer src="assets/js/FoodItemView.js"></script>
-<script defer src="assets/js/AppView.js"></script>
-<script defer src="assets/js/app.js"></script>
-<script defer src="assets/js/router.js"></script>
-<!-- endbuild -->
-</body>
-</html>
+    </div></script><script src="bower_components/jquery/dist/jquery.min.js"></script><script src="bower_components/underscore/underscore-min.js"></script><script src="bower_components/backbone/backbone-min.js"></script><script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script><script src="https://cdn.firebase.com/js/client/2.4.1/firebase.js"></script><script src="https://cdn.firebase.com/libs/backbonefire/0.5.1/backbonefire.min.js"></script><script src="./js/site.js"></script></body></html>
