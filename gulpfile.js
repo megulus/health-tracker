@@ -3,7 +3,9 @@ var gulp = require('gulp'),
     minifycss = require('gulp-minify-css'),
     uglify = require('gulp-uglify'),
     mainBowerFiles = require('main-bower-files'),
-    filter = require('gulp-filter');
+    usemin = require('gulp-usemin'),
+    rename = require('gulp-rename'),
+    debug = require('gulp-debug');
 
 
 function errorLog(error) {
@@ -12,45 +14,23 @@ function errorLog(error) {
 }
 
 
-gulp.task('html', function () {
-    gulp.src('*.html')
-        .pipe(minifyhtml({collapseWhitespace: true}))
-        .pipe(gulp.dest('build'))
-        .on('error', errorLog);
-});
-
-
-gulp.task('minifycss', function () {
-    gulp.src('css/*.css')
-        .pipe(minifycss())
-        .pipe(gulp.dest('build/css'))
-        .on('error', errorLog);
-});
-
-gulp.task('uglify', function () {
-    gulp.src('js/*js')
-        .pipe(uglify())
-        .pipe(gulp.dest('build/js'))
-        .on('error', errorLog)
-});
-
 gulp.task('bower', function () {
     return gulp.src(mainBowerFiles(), {base: 'bower_components'})
-        .pipe(uglify())
+        .pipe(debug({ title: 'bower-debug' }))
         .pipe(gulp.dest('build/bower_components'))
 });
 
-gulp.task('components_css', function () {
-    gulp.src('other_components/*.css')
-        .pipe(minifycss())
-        .pipe(gulp.dest('build/other_components'))
+
+
+gulp.task('usemin', function() {
+     return gulp.src('*.html')
+         .pipe(usemin({
+             html: [minifyhtml({ collapseWhitespace: true })],
+             css: [minifycss(), 'concat'],
+             js: [uglify(), 'concat']
+         }))
+         .pipe(gulp.dest('build'))
 });
 
-gulp.task('components_js', function () {
-    gulp.src('other_components/*.js')
-        .pipe(uglify())
-        .pipe(gulp.dest('build/other_components'))
-});
 
-
-gulp.task('default', ['html', 'minifycss', 'uglify', 'bower', 'components_css', 'components_js']);
+gulp.task('default', ['bower', 'usemin']);
