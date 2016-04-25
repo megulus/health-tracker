@@ -24,13 +24,9 @@ app.SearchItemView = Backbone.View.extend({
     },
 
     addNewTrackedItem: function() {
-        app.UserCollection.add({
-            brand: this.model.get('brand'),
-            item: this.model.get('item'),
-            calories: this.model.get('calories'),
-            date: this.model.get('date'),
-            order: app.UserCollection.nextOrder()
-        });
+        var new_fooditem = new app.FoodItem(this.model.attributes);
+        app.UserCollection.add(new_fooditem);
+        new_fooditem.save();
     }
 
 });

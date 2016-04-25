@@ -42,6 +42,9 @@ app.AppView = Backbone.View.extend({
         this.listenTo(app.UserCollection, 'remove', this.displayCalories);
         this.listenTo(app.UserCollection, 'filter', this.filterAll);
         this.listenTo(app.UserCollection, 'all', this.render);
+
+        app.UserCollection.fetch();
+
     },
 
     render: function () {
@@ -58,8 +61,8 @@ app.AppView = Backbone.View.extend({
     },
 
     // trigger custom event 'visible'
-    filterOne: function(todo) {
-        todo.trigger('visible');
+    filterOne: function(fooditem) {
+        fooditem.trigger('visible');
     },
 
 

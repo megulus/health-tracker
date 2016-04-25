@@ -16,17 +16,29 @@
   "dependencies": {
     "jquery": "^2.2.2",
     "underscore": "^1.8.3",
-    "backbone": "^1.3.2"
+    "backbone": "^1.3.2",
+    "backbone.localStorage": "^1.1.16"
   },
   "overrides": {
     "jquery": {
-      "main": ["dist/jquery.min.js"]
+      "main": [
+        "dist/jquery.min.js"
+      ]
     },
     "underscore": {
-      "main": ["underscore-min.js"]
+      "main": [
+        "underscore-min.js"
+      ]
     },
     "backbone": {
-      "main": ["backbone-min.js"]
+      "main": [
+        "backbone-min.js"
+      ]
+    },
+    "backbone.localStorage": {
+      "main": [
+        "backbone.localStorage-min.js"
+      ]
     }
   }
 }

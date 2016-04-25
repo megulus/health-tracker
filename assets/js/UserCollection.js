@@ -5,12 +5,11 @@
 
 var app = app || {};
 
-// todo: order collection according to order models added, and add ability to reverse the display order
 
-var UserCollection = Backbone.Firebase.Collection.extend({
-    url: 'https://popping-fire-4784.firebaseIO.com',
+var UserCollection = Backbone.Collection.extend({
+
     model: app.FoodItem,
-    autoSync: true,
+    localStorage: new Backbone.LocalStorage('UserCollection'),
 
     // Filter the collection for foods eaten this year
     byYear: function() {
@@ -78,5 +77,7 @@ var UserCollection = Backbone.Firebase.Collection.extend({
 });
 
 app.UserCollection = new UserCollection();
+
+
 
 
