@@ -27,7 +27,8 @@
                     <div id="search-group" class="form-group">
                         <label for="search">Search for Food Items</label>
                         <input id="search" class="form-control"
-                               placeholder="What did you eat today? (search for food items, e.g., 'latte' or 'Starbucks latte')" autofocus
+                               placeholder="What did you eat today? (search for food items, e.g., 'latte' or 'Starbucks latte')"
+                               autofocus
                                autocomplete="off">
                         <button class="btn btn-default" id="search-button">Search</button>
                     </div>
@@ -39,7 +40,7 @@
     <section>
         <div class="row">
             <div class="col-md-6">
-                <div class="col-md-6 display-box display-box-full" id="search-results">
+                <div class="display-box display-box-full" id="search-results">
                     <p class="results-txt">Search results will be displayed here</p>
                     <ul></ul>
                 </div>
@@ -51,15 +52,17 @@
                     <li class="nav" id="day"><a href="#day">Today</a></li>
                     <li class="nav" id="week"><a href="#week">Last 7 Days</a></li>
                     <li class="nav" id="month"><a href="#month">This Month</a></li>
-                    <li class="nav" id="year"><a href="#year" >This Year</a></li>
+                    <li class="nav" id="year"><a href="#year">This Year</a></li>
                 </ul>
-                <div class="col-md-3 display-box display-box-half" id="calorie-count">
-                    <p class="results-txt">Calories (total of tracked foods):</p>
-                    <h1 class="h1 calories"></h1>
-                </div>
-                <div class="col-md-3 display-box display-box-half" id="foods-tracked">
-                    <p class="results-txt">Foods Tracked:</p>
-                    <ul></ul>
+                <div>
+                    <div class="col-md-3 col-xs-3 display-box display-box-half" id="calorie-count">
+                        <p class="results-txt">Calories (total of tracked foods):</p>
+                        <h1 class="h1 calories"></h1>
+                    </div>
+                    <div class="col-md-3 col-xs-3 display-box display-box-half" id="foods-tracked">
+                        <p class="results-txt">Foods Tracked:</p>
+                        <ul></ul>
+                    </div>
                 </div>
                 <a class="open hide" id="clear-tracker">Clear Calorie Tracker</a>
             </div>
@@ -107,12 +110,12 @@
         </div>
         <div class="modal-body">
             <div class="progress progress-striped active">
-                <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
+                <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"
+                     style="width: 100%;"></div>
             </div>
         </div>
     </div>
 </script>
-
 
 
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
@@ -120,8 +123,7 @@
 <script src="bower_components/backbone/backbone-min.js"></script>
 <script src="bower_components/backbone.localStorage/backbone.localStorage-min.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<script src="https://cdn.firebase.com/js/client/2.4.1/firebase.js"></script>
-<script src="https://cdn.firebase.com/libs/backbonefire/0.5.1/backbonefire.min.js"></script>
+
 
 <!-- build:js ./js/site.js -->
 <script src="assets/other_components/backbone.modal.js"></script>
